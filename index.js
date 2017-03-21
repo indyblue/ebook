@@ -18,8 +18,12 @@ var fpath = __dirname;
 if(process.argv.length>2) 
 	fpath = process.argv[2];
 
+var type = []; //['epub', 'mobi'];
+if(process.argv.length>3) 
+	type = process.argv[3].split(',');
+
 var filter = /^\d.*\.(txt|vi)$/i;
-if(process.argv.length>3) {
+if(process.argv.length>4) {
 	var ext = process.argv[3];
 	if(/^\.[a-z0-9]$/i.test(ext))
 		filter = new RegExp('^.*\\'+ext+'$','i');
@@ -66,7 +70,6 @@ var $fn = $doc.find('#fnout');
 t.fnMove($txt, $fn);
 t.tocBuild('h2','h3');
 
-
 var fnCamel = (str) => str.replace(/([^a-z0-9]*)([a-z0-9]+)([^a-z0-9]*)/gi, function(m,nw1, w, nw2){
 		return w[0].toUpperCase() + w.substr(1).toLowerCase();
 	});
@@ -93,7 +96,6 @@ var cmd = 'ebook-convert "'+outfile+'.html" "'+outfile+'.{ext}"'
 	+" --level2-toc \"//*[name()='h3']\" "
 	+" --max-toc-links 500 --duplicate-links-in-toc  --toc-threshold 500";
 
-var type = ['epub', 'mobi'];
 for(var i=0;i<type.length;i++){
 	var cmde = cmd.replace(/{ext}/g,type[i]);
 	console.log(cmde);
