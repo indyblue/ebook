@@ -62,6 +62,27 @@ for(var i=0;i<files.length;i++){
 		console.log(ipath, txt.length, htm.length);
 		console.log('***** quote error - ' + str.substr(i-50,100));
 	});
+	var o = -1;
+	txtHtm.replace(/<[^>]*>/g,'').replace(/&ldquo;|&rdquo;/ig, function(q,i,str){
+		if(/ldq/i.test(q)) {
+			o = i;
+		} else {
+			if(o<0) console.log('***** LR quote imbalance', ipath, str.substr(i-50,100));
+			o = -1;
+		}
+	});
+	var o = -1;
+	txtHtm.replace(/<[^>]*>/g,'').replace(/(.)(&lsquo;|&rsquo;)(.)/ig, function(w,b,q,a,i,str){
+		if(/lsq/i.test(q)) {
+			o = i;
+		} else if(/[a-z]/i.test(b) && /[a-z]/i.test(a)) {
+		} else if(/s/i.test(b) && / /i.test(a)) {
+			// do nothing
+		} else {
+			if(o<0) console.log('***** LR squote imbalance', ipath, str.substr(i-50,100));
+			o = -1;
+		}
+	});
 }
 var $doc = t.doc();
 var $txt = $doc.find('#htmlout');
