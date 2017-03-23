@@ -1,11 +1,6 @@
-ttf
-output.pdf
-misc/PDF32000_2008.pdf
+output
 test
 node
 *~
 *.swp
-*.html
-*.epub
-*.mobi
 zdouble

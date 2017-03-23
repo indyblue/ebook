@@ -105,7 +105,7 @@ console.log(title1, title2, author);
 console.log(fname);
 
 var outdir = __dirname; //path.dirname(fpath);
-var outfile = path.join(outdir, fname);
+var outfile = path.join(outdir, 'output', fname);
 
 fs.writeFileSync(outfile+'.html', $doc.html());
 
