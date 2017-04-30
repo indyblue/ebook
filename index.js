@@ -20,15 +20,15 @@ if(process.argv.length>2)
 
 var type = []; //['epub', 'mobi'];
 if(process.argv.length>3) 
-	type = process.argv[3].split(',');
+	type = process.argv[3].split(',').filter(x=> !/^\s*$/.test(x));
 
 var filter = /^\d.*\.(txt|vi)$/i;
 if(process.argv.length>4) {
-	var ext = process.argv[3];
-	if(/^\.[a-z0-9]$/i.test(ext))
+	var ext = process.argv[4];
+	if(/^\.[a-z0-9]+$/i.test(ext))
 		filter = new RegExp('^.*\\'+ext+'$','i');
 	else if(/^\/[^\/]*\/[^\/]*$/.test(ext)) {
-		sp = ext.split('/');
+		var sp = ext.split('/');
 		filter = new RegExp(sp[1], sp[2]);
 	}
 }
@@ -49,12 +49,13 @@ if(filter instanceof RegExp) {
 	files = files.filter(x=> filter.test(x));
 }
 
-//console.log(files);
+console.log(files, type, filter);
 
 var htm = '';
 for(var i=0;i<files.length;i++){
 	var ipath = path.join(fpath, files[i]);
 	var txt = fs.readFileSync(ipath, 'utf8');
+	txt = txt.replace(/\r/g, '');
 	var txtHtm = t.toHtml(txt);
 	htm += txtHtm;
 	//console.log(ipath, txt.length, htm.length);
@@ -101,6 +102,7 @@ var title1 = $doc.find('.title1').text();
 var title2 = $doc.find('.title2').text();
 var author = $doc.find('.author').text();
 var fname = fnCamel(title1) + '_' + fnCamel(author);
+if(fname=='_' && files.length>0) fname = files[0];
 console.log(title1, title2, author);
 console.log(fname);
 
