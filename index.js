@@ -39,6 +39,7 @@ if(pStat.isFile()) {
 	var pp = path.parse(fpath);
 	files.push(pp.base);
 	fpath = pp.dir;
+	filter=null;
 }
 else if(pStat.isDirectory()) 
 	files = fs.readdirSync(fpath);
@@ -103,14 +104,15 @@ var title2 = $doc.find('.title2').text();
 var author = $doc.find('.author').text();
 var fname = fnCamel(title1) + '_' + fnCamel(author);
 if(fname=='_' && files.length>0) fname = files[0];
-console.log(title1, title2, author);
-console.log(fname);
+console.log('titles', title1, title2, author);
+console.log('fname', fname);
 
 var outdir = __dirname; //path.dirname(fpath);
 var outfile = path.join(outdir, 'output', fname);
 
 fs.writeFileSync(outfile+'.html', $doc.html());
 
+//process.exit();
 var cmd = 'ebook-convert "'+outfile+'.html" "'+outfile+'.{ext}"'
 	+' --title "'+title1+'" '
 	+' --comments "'+title2+'" '
