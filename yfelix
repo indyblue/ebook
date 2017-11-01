@@ -1,0 +1,3 @@
+#!/bin/bash
+node index.js /home/user/0das/pdf/Saints/felix_cantalice/la_vie_de_saint_felix/00a_title.vi
+node translate.js output/LaVieDeSaintFelixDeCantaliceCapucin_.html fr
