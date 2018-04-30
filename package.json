@@ -6,6 +6,8 @@
   "dependencies": {
   	"promise.das": "git://github.com/indyblue/promise.das.git",
   	"ttf-parse.das": "git://github.com/indyblue/ttf-parse.das.git",
+  	"promise.das": "~/www/node/das/my_modules/promise.das",
+  	"ttf-parse.das": "~/www/node/das/my_modules/ttf-parse.das",
 	"base85": "latest"
   },
   "devDependencies": {},
